@@ -72,6 +72,13 @@
   (seq [this]
     (seq (.entries root (java.util.ArrayList.))))
 
+  clojure.lang.Reversible
+  (rseq [this]
+    (let [^java.util.ArrayList l
+          (.entries root (java.util.ArrayList.))
+          n (.size l)]
+      (for [i (range n)] (.get l (- n i 1)))))
+
   r/CollFold
 
   (coll-fold [this n combinef reducef]

@@ -15,6 +15,23 @@
 (deftest test-map-like
   (check/assert-map-like 1e3 (i/int-map) gen/pos-int gen/int))
 
+(defn create-map-from-ints
+  [coll]
+  (reduce #(assoc %1 %2 %2) (i/int-map) coll))
+
+(def bunch-of-ints
+  (gen/fmap distinct (gen/list gen/pos-int)))
+
+(defspec sorted-sequence 1e3
+  (prop/for-all [xs bunch-of-ints]
+    (= (keys (seq (create-map-from-ints xs)))
+       (seq (sort xs)))))
+
+(defspec reverse-sorted-sequence 1e3
+  (prop/for-all [xs bunch-of-ints]
+    (= (keys (rseq (create-map-from-ints xs)))
+       (rseq (vec (sort xs))))))
+
 (def int-map-generator
   (gen/fmap
     (fn [ks]

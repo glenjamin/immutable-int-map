@@ -3,7 +3,8 @@
   :license {:name "MIT License"
             :url "http://opensource.org/licenses/MIT"}
   :dependencies []
-  :profiles {:dev {:dependencies [[org.clojure/clojure "1.6.0"]
+  :profiles {:dev {:global-vars {*warn-on-reflection* true}
+                   :dependencies [[org.clojure/clojure "1.6.0"]
                                   [collection-check "0.1.2"]
                                   [criterium "0.4.3"]
                                   [primitive-math "0.1.3"]
